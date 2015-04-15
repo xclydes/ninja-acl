@@ -16,6 +16,8 @@
 
 package com.ludgerpeters.acl;
 
+import java.util.Set;
+
 /**
  * Created by Ludger on 2015-04-13.
  */
@@ -24,4 +26,8 @@ public interface UserAuthenticationRepository {
     String getPasswordHash(String username);
 
     String getUserId(String username);
+
+    Set<String> getPermissions(String id);
+
+    Set<String> getGroups(String id);
 }

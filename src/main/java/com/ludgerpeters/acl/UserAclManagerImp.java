@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
  * Created by Ludger on 2015-04-13.
@@ -45,12 +47,17 @@ public class UserAclManagerImp implements UserAclManager {
 
     @Override
     public boolean checkUserPermissions(String userId, String[] groups, String[] permissions) {
-        logger.info("Checking user permissions for "+userId+" with Groups "+Arrays.toString(groups)+" and with permissions"+Arrays.toString(permissions));
+        logger.info("Checking user permissions for " + userId + " with Groups " + Arrays.toString(groups) + " and with permissions" + Arrays.toString(permissions));
         return checkUserPermissions(userId,permissions) || checkUserGroups(userId,groups);
     }
 
     public boolean checkUserPermissions(String userId,String ... permissions)
     {
+        Set<String> groups = userRepository.getGroups(userId);
+        boolean contains;
+        for (int i = 0; i < permissions.length; i++) {
+            
+        }
         return false;
     }
 

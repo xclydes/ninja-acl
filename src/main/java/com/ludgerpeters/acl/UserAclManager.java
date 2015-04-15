@@ -33,7 +33,7 @@ public interface UserAclManager {
      * @param username unique username to look up the user from the repository
      * @param password the unhashed password
      * @return true if password is correct, false if it is incorrect
-     * @throws UserNotFoundException exception when no user is found
+     * @throws AuthenticationException exception when there is an error with finding the user
      */
     boolean loginUser(String username, String password) throws AuthenticationException;
 
