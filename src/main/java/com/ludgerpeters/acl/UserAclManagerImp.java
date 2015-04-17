@@ -45,25 +45,10 @@ public class UserAclManagerImp implements UserAclManager {
     @Inject
     protected Session session;
 
-    @Override
-    public boolean checkUserPermissions(String userId, String[] groups, String[] permissions) {
-        logger.info("Checking user permissions for " + userId + " with Groups " + Arrays.toString(groups) + " and with permissions" + Arrays.toString(permissions));
-        return checkUserPermissions(userId,permissions) || checkUserGroups(userId,groups);
-    }
-
-    public boolean checkUserPermissions(String userId,String ... permissions)
+    public boolean checkUserPermissions(String userId,String permissions[])
     {
-        Set<String> groups = userRepository.getGroups(userId);
-        boolean contains;
-        for (int i = 0; i < permissions.length; i++) {
-            
-        }
-        return false;
-    }
-
-    public boolean checkUserGroups(String userId,String ... groups)
-    {
-        return false;
+        Set<String> userPermissions = userRepository.getPermissions(userId);
+        return Arrays.stream(permissions).anyMatch(userPermissions::contains);
     }
 
     @Override

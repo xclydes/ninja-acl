@@ -23,7 +23,7 @@ import com.ludgerpeters.acl.exceptions.AuthenticationException;
  */
 public interface UserAclManager {
     String SESSION_LOGIN_ID = "userID";
-    boolean checkUserPermissions(String userId, String[] groups, String[] permissions);
+    boolean checkUserPermissions(String userId, String[] permissions);
 
     boolean checkUserPermissions(String userId, String methodReference);
 

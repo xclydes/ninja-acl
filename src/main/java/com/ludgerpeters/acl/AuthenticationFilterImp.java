@@ -43,6 +43,7 @@ public class AuthenticationFilterImp implements AuthenticationFilter {
         if(StringUtils.isEmpty(userId))
         {
             logger.info("User ID is empty");
+            //@TODO need to add redirection logic
         }
         else
         {
@@ -51,11 +52,13 @@ public class AuthenticationFilterImp implements AuthenticationFilter {
             {
                 if(validatePermissions(userId,aclAnnotation,context))
                 {
-                    logger.info("User Passes the login Test");
+                    logger.info("User Passes the permission check");
+                    return filterChain.next(context);
                 }
                 else
                 {
-                    logger.info("User Does not have sufficient ");
+                    //@TODO need to add redirection logic to redirect here
+                    logger.info("User Does not have sufficient privileges");
                 }
             }
         }
@@ -70,7 +73,7 @@ public class AuthenticationFilterImp implements AuthenticationFilter {
         }
         else
         {
-            return userManager.checkUserPermissions(userId,aclAnnotation.groups(),aclAnnotation.permissions());
+            return userManager.checkUserPermissions(userId,aclAnnotation.permissions());
         }
     }
 }

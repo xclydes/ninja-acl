@@ -28,6 +28,4 @@ public interface UserAuthenticationRepository {
     String getUserId(String username);
 
     Set<String> getPermissions(String id);
-
-    Set<String> getGroups(String id);
 }

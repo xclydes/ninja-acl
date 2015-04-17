@@ -28,6 +28,5 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD })
 public @interface AuthenticationAcl {
     String[] permissions() default "";
-    String[] groups() default "";
     boolean fromManager() default false;
 }
