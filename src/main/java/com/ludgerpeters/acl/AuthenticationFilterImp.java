@@ -39,6 +39,10 @@ public class AuthenticationFilterImp implements AuthenticationFilter {
         logger.info("Filter hit with url: "+context.getRequestPath());
         Session session = context.getSession();
         AuthenticationAcl aclAnnotation = context.getRoute().getControllerMethod().getAnnotation(AuthenticationAcl.class);
+        if(aclAnnotation == null)
+        {
+            aclAnnotation = context.getRoute().getControllerClass().getAnnotation(AuthenticationAcl.class);
+        }
         String userId = session.get("user.id");
         if(StringUtils.isEmpty(userId))
         {

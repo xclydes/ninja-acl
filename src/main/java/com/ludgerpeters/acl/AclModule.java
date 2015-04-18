@@ -30,8 +30,15 @@ import com.ludgerpeters.acl.utility.PasswordHashingImp;
  */
 public class AclModule extends AbstractModule {
 
+    private final Class<? extends UserAuthenticationRepository> userAuthRepoClass;
+
+    public AclModule(Class<? extends UserAuthenticationRepository> userAuthClass) {
+        userAuthRepoClass = userAuthClass;
+    }
+
     @Override
     protected void configure() {
+        bind(UserAuthenticationRepository.class).to(userAuthRepoClass);
         bind(AuthenticationFilter.class).to(AuthenticationFilterImp.class);
         bind(UserAclManager.class).to(UserAclManagerImp.class);
         bind(PasswordHashing.class).to(PasswordHashingImp.class);

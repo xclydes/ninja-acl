@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * Created by Ludger on 2015-04-13.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
+@Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface AuthenticationAcl {
     String[] permissions() default "";
     boolean fromManager() default false;
