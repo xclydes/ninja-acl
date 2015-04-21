@@ -25,7 +25,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -47,8 +49,22 @@ public class UserAclManagerImp implements UserAclManager {
 
     public boolean checkUserPermissions(String userId,String permissions[])
     {
+        HashSet<String> permissionSet = new HashSet<>();
+        Arrays.asList(permissions).forEach(s -> {
+            permissionSet.add(s);
+            String[] split = s.split("\\.");
+            IntStream.range(0, split.length).forEach(i -> {
+                String join = "";
+                for (int j = 0; j < i; j++) {
+                    join += split[j] + ".";
+                }
+                join += "*";
+                permissionSet.add(join);
+
+            });
+        });
         Set<String> userPermissions = userRepository.getPermissions(userId);
-        return Arrays.stream(permissions).anyMatch(userPermissions::contains);
+        return permissionSet.stream().anyMatch(userPermissions::contains);
     }
 
     @Override
